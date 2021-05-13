@@ -1,6 +1,6 @@
 package com.asinfo.test.practice.controller.api;
 
-import com.asinfo.test.practice.model.service.EmployeesService;
+import com.asinfo.test.practice.service.EmployeesService;
 import com.asinfo.test.practice.view.EmployeesPresenter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;

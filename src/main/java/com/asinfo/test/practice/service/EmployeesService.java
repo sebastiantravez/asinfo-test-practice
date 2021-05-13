@@ -1,4 +1,4 @@
-package com.asinfo.test.practice.model.service;
+package com.asinfo.test.practice.service;
 
 import com.asinfo.test.practice.view.EmployeesPresenter;
 

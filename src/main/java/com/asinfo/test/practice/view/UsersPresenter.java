@@ -1,26 +1,27 @@
 package com.asinfo.test.practice.view;
 
-import com.asinfo.test.practice.controller.entity.Employees;
+import com.asinfo.test.practice.controller.entity.Roles;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
-import javax.persistence.*;
-import java.util.UUID;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Setter
 @Getter
 @Builder
-@EqualsAndHashCode(of = "idUser")
-@ToString(of = "idUser")
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsersPresenter {
-
-    private UUID idUser;
 
     private String user;
 
     private String password;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String token;
+
+    private List<UsersRolesPresenter> usersRolesPresenters;
 
 }

@@ -1,4 +1,4 @@
-package com.asinfo.test.practice.model.service;
+package com.asinfo.test.practice.service;
 
 import net.sf.jasperreports.engine.JRException;
 

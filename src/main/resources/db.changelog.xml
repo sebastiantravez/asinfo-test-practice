@@ -4,6 +4,15 @@
                    xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
     <changeSet id="20210513-01" author="sebastian.travez">
+        <createTable tableName="business">
+            <column name="id_business" type="UUID">
+                <constraints nullable="false" primaryKeyName="business_pkey" primaryKey="true"></constraints>
+            </column>
+            <column name="business_name" type="VARCHAR(100)"></column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20210513-02" author="sebastian.travez">
         <createTable tableName="department">
             <column name="id_department" type="UUID">
                 <constraints nullable="false" primaryKeyName="department_pkey" primaryKey="true"></constraints>
@@ -12,15 +21,21 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="20210513-02" author="sebastian.travez">
+    <changeSet id="20210513-03" author="sebastian.travez">
         <createTable tableName="employees">
             <column name="id_employee" type="UUID">
                 <constraints nullable="false" primaryKeyName="employee_pkey" primaryKey="true"></constraints>
+            </column>
+            <column name="id_business" type="UUID">
+                <constraints nullable="true"></constraints>
             </column>
             <column name="id_department" type="UUID">
                 <constraints nullable="true"></constraints>
             </column>
             <column name="id_user" type="UUID">
+                <constraints nullable="true"></constraints>
+            </column>
+            <column name="id_charge" type="UUID">
                 <constraints nullable="true"></constraints>
             </column>
             <column name="full_name" type="VARCHAR(100)"></column>
@@ -30,20 +45,54 @@
             <column name="date" type="TIMESTAMP"></column>
             <column name="state" type="VARCHAR(20)"></column>
         </createTable>
+        <addForeignKeyConstraint baseTableName="employees" baseColumnNames="id_business"
+                                 constraintName="fk_employee_business"
+                                 referencedTableName="business"
+                                 referencedColumnNames="id_business"></addForeignKeyConstraint>
+        <addUniqueConstraint tableName="employees" columnNames="identification_number"
+                             constraintName="ck_identification_number"/>
     </changeSet>
 
-    <changeSet id="20210513-03" author="sebastian.travez">
+    <changeSet id="20210513-04" author="sebastian.travez">
         <createTable tableName="users">
             <column name="id_user" type="UUID">
                 <constraints nullable="false" primaryKeyName="id_users_pkey" primaryKey="true"></constraints>
             </column>
             <column name="user" type="VARCHAR(100)"></column>
             <column name="password" type="VARCHAR(100)"></column>
-            <column name="token" type="VARCHAR(250)"></column>
         </createTable>
     </changeSet>
 
-    <changeSet id="20210513-04" author="sebastian.travez">
+    <changeSet id="20210513-05" author="sebastian.travez">
+        <createTable tableName="roles">
+            <column name="id_rol" type="UUID">
+                <constraints nullable="false" primaryKeyName="id_rol_pkey" primaryKey="true"></constraints>
+            </column>
+            <column name="name" type="VARCHAR(100)"></column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20210513-06" author="sebastian.travez">
+        <createTable tableName="users_roles">
+            <column name="id_user" type="UUID">
+                <constraints nullable="false"></constraints>
+            </column>
+            <column name="id_rol" type="UUID">
+                <constraints nullable="false"></constraints>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20210513-07" author="sebastian.travez">
+        <createTable tableName="charges">
+            <column name="id_charge" type="UUID">
+                <constraints nullable="false" primaryKeyName="id_charge_pkey" primaryKey="true"></constraints>
+            </column>
+            <column name="name" type="VARCHAR(100)"></column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20210513-08" author="sebastian.travez">
         <insert tableName="department">
             <column name="id_department" value="50630c1f-5f69-488c-b622-41c7d56a4dfb"></column>
             <column name="name_department" value="SISTEMAS"></column>
@@ -58,36 +107,57 @@
         </insert>
     </changeSet>
 
-    <changeSet id="20210513-05" author="sebastian.travez">
+    <changeSet id="20210513-09" author="sebastian.travez">
+        <insert tableName="business">
+            <column name="id_business" value="559cc947-719a-4d17-b4fa-398010ac6a15"></column>
+            <column name="business_name" value="ASINFO S.A."></column>
+        </insert>
+
+        <insert tableName="charges">
+            <column name="id_charge" value="14184c5c-9fb4-4e1b-8077-177a2f79d0d8"></column>
+            <column name="name" value="SUPERVISOR"></column>
+        </insert>
+        <insert tableName="charges">
+            <column name="id_charge" value="52ce3946-6f77-44fb-9281-eff2637837d4"></column>
+            <column name="name" value="MANAGER"></column>
+        </insert>
+
+        <insert tableName="users">
+            <column name="id_user" value="869bea53-389d-4ed6-b2d1-902426fceda9"></column>
+            <column name="user" value="admin"></column>
+            <column name="password" value="admin"></column>
+        </insert>
+
         <insert tableName="employees">
             <column name="id_employee" value="4ab538fb-4e5a-4fa4-862e-960bb3c3496b"></column>
             <column name="id_department" value="50630c1f-5f69-488c-b622-41c7d56a4dfb"></column>
+            <column name="id_business" value="559cc947-719a-4d17-b4fa-398010ac6a15"></column>
+            <column name="id_user" value="869bea53-389d-4ed6-b2d1-902426fceda9"></column>
+            <column name="id_charge" value="14184c5c-9fb4-4e1b-8077-177a2f79d0d8"></column>
             <column name="full_name" value="SEBASTIAN TRAVEZ"></column>
             <column name="identification_type" value="DNI"></column>
-            <column name="identification_number" value="1724022437"></column>
+            <column name="identification_number" value="1724022227"></column>
             <column name="salary" value="600.00"></column>
             <column name="date" valueDate="CURRENT_DATE"></column>
             <column name="state" value="ACTIVE"></column>
         </insert>
-        <insert tableName="employees">
-            <column name="id_employee" value="e7b46c48-6cab-4677-a3a3-44cf0f6f7ceb"></column>
-            <column name="id_department" value="ad5545d6-4610-4713-a603-86fbf975eff9"></column>
-            <column name="full_name" value="JUAN MONTALVO"></column>
-            <column name="identification_type" value="DNI"></column>
-            <column name="identification_number" value="1724022437"></column>
-            <column name="salary" value="600.00"></column>
-            <column name="date" valueDate="CURRENT_DATE"></column>
-            <column name="state" value="ACTIVE"></column>
+
+        <insert tableName="roles">
+            <column name="id_rol" value="9b340592-9291-48fb-b282-f04ce36b6fd6"></column>
+            <column name="name" value="ADMIN"></column>
         </insert>
-        <insert tableName="employees">
-            <column name="id_employee" value="d9e385e3-90b7-4d56-b6f7-99cf80427884"></column>
-            <column name="id_department" value="9b340592-9291-48fb-b282-f04ce36b6fd6"></column>
-            <column name="full_name" value="CRISITNA GARCIA"></column>
-            <column name="identification_type" value="DNI"></column>
-            <column name="identification_number" value="1724022437"></column>
-            <column name="salary" value="600.00"></column>
-            <column name="date" valueDate="CURRENT_DATE"></column>
-            <column name="state" value="ACTIVE"></column>
+        <insert tableName="roles">
+            <column name="id_rol" value="d9e385e3-90b7-4d56-b6f7-99cf80427884"></column>
+            <column name="name" value="SUPER_USER"></column>
+        </insert>
+        <insert tableName="roles">
+            <column name="id_rol" value="ad5545d6-4610-4713-a603-86fbf975eff9"></column>
+            <column name="name" value="INVITED"></column>
+        </insert>
+
+        <insert tableName="users_roles">
+            <column name="id_user" value="869bea53-389d-4ed6-b2d1-902426fceda9"></column>
+            <column name="id_rol" value="9b340592-9291-48fb-b282-f04ce36b6fd6"></column>
         </insert>
     </changeSet>
 

@@ -1,6 +1,6 @@
-package com.asinfo.test.practice.model.service.impl;
+package com.asinfo.test.practice.service.impl;
 
-import com.asinfo.test.practice.model.service.JasperReportService;
+import com.asinfo.test.practice.service.JasperReportService;
 import org.springframework.core.io.ClassPathResource;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;

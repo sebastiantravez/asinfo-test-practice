@@ -45,7 +45,15 @@ public class Employees {
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     private Department department;
 
+    @JoinColumn(name = "id_charge")
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
+    private Charges charges;
+
     @JoinColumn(name = "id_user")
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     private Users users;
+
+    @ManyToOne
+    @JoinColumn(name = "id_business")
+    private Business business;
 }

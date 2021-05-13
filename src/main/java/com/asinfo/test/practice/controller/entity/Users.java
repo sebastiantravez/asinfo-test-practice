@@ -3,6 +3,8 @@ package com.asinfo.test.practice.controller.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -25,9 +27,12 @@ public class Users {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "token")
-    private String token;
-
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "users")
     private Employees employees;
+
+    @ManyToMany()
+    @Builder.Default
+    @JoinTable(name = "users_roles", joinColumns = { @JoinColumn(name = "id_user") }, inverseJoinColumns = {
+            @JoinColumn(name = "id_rol") })
+    private Set<Roles> roles = new HashSet<>();
 }
