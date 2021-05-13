@@ -1,8 +1,11 @@
 package com.asinfo.test.practice.controller.entity;
 
+import com.asinfo.test.practice.controller.enums.StateEmployee;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -21,6 +24,16 @@ public class Employees {
 
     @Column(name = "full_name")
     private String fullName;
+
+    @Column(name = "salary")
+    private BigDecimal salary;
+
+    @Column(name = "date")
+    private Date date;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "state")
+    private StateEmployee stateType;
 
     @MapsId
     @JoinColumn(name = "id_department")
