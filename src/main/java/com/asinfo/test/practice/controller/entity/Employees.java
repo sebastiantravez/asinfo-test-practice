@@ -15,7 +15,13 @@ import java.util.UUID;
 public class Employees {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id_employee")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
+    @Column(name = "full_name")
+    private String fullName;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "employees")
+    private Department department;
 }

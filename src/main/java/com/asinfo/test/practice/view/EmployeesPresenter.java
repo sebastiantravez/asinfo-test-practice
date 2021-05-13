@@ -12,4 +12,6 @@ import java.util.UUID;
 public class EmployeesPresenter {
 
     private UUID id;
+
+    private String fullName;
 }

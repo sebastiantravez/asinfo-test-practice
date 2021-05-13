@@ -4,7 +4,7 @@ import com.asinfo.test.practice.view.EmployeesPresenter;
 
 import java.util.List;
 
-public interface RegisterEmployeesService {
+public interface EmployeesService {
     void saveEmployees();
     List<EmployeesPresenter> getAllEmployees();
 
