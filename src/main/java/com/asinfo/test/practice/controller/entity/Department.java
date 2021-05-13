@@ -17,13 +17,11 @@ public class Department {
     @Id
     @Column(name = "id_department")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private UUID idDepartment;
 
     @Column(name = "name_department")
     private String nameDepartment;
 
-    @MapsId
-    @JoinColumn(name = "id_employee")
-    @OneToOne(cascade = CascadeType.ALL, optional = false)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "department")
     private Employees employees;
 }

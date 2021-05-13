@@ -3,6 +3,7 @@ package com.asinfo.test.practice.model.service.implement;
 import com.asinfo.test.practice.controller.entity.Employees;
 import com.asinfo.test.practice.controller.repository.EmployeesRepository;
 import com.asinfo.test.practice.model.service.EmployeesService;
+import com.asinfo.test.practice.view.DepartmentPresenter;
 import com.asinfo.test.practice.view.EmployeesPresenter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,10 @@ public class EmployeesServiceImpl implements EmployeesService {
                 .map(item -> EmployeesPresenter.builder()
                         .idEmployee(item.getIdEmployee())
                         .fullName(item.getFullName())
+                        .departmentPresenter(DepartmentPresenter.builder()
+                                .idDepartment(item.getDepartment().getIdDepartment())
+                                .nameDepartment(item.getDepartment().getNameDepartment())
+                                .build())
                         .build()).collect(Collectors.toList());
 
     }

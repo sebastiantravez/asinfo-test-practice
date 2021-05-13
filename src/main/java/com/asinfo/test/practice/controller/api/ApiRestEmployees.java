@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-public class EmployeesApiRest {
+public class ApiRestEmployees {
 
     @Autowired
     EmployeesService employeesService;

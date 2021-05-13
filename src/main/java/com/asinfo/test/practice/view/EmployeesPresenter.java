@@ -7,8 +7,8 @@ import java.util.UUID;
 @Setter
 @Getter
 @Builder
-@EqualsAndHashCode(of = "id_employee")
-@ToString(of = "id_employee")
+@EqualsAndHashCode(of = "idEmployee")
+@ToString(of = "idEmployee")
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmployeesPresenter {
@@ -16,4 +16,6 @@ public class EmployeesPresenter {
     private UUID idEmployee;
 
     private String fullName;
+
+    private DepartmentPresenter departmentPresenter;
 }

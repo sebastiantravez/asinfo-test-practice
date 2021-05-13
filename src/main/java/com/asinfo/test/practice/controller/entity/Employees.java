@@ -22,6 +22,8 @@ public class Employees {
     @Column(name = "full_name")
     private String fullName;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "employees")
+    @MapsId
+    @JoinColumn(name = "id_department")
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
     private Department department;
 }
