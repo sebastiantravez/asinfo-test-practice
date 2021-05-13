@@ -1,8 +1,6 @@
 package com.asinfo.test.practice.controller.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -12,12 +10,14 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Employees {
 
     @Id
     @Column(name = "id_employee")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private UUID idEmployee;
 
     @Column(name = "full_name")
     private String fullName;

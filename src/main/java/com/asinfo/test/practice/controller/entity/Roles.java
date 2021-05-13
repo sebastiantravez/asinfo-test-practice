@@ -7,10 +7,5 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "roles")
-@Getter
-@Setter
-@Builder
 public class Roles {
 }

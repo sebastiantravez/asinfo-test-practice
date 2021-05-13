@@ -7,11 +7,13 @@ import java.util.UUID;
 @Setter
 @Getter
 @Builder
-@EqualsAndHashCode(of = "id")
-@ToString(of = "id")
+@EqualsAndHashCode(of = "id_employee")
+@ToString(of = "id_employee")
+@NoArgsConstructor
+@AllArgsConstructor
 public class EmployeesPresenter {
 
-    private UUID id;
+    private UUID idEmployee;
 
     private String fullName;
 }

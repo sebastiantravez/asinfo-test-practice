@@ -1,5 +1,6 @@
 package com.asinfo.test.practice.model.service.implement;
 
+import com.asinfo.test.practice.controller.entity.Employees;
 import com.asinfo.test.practice.controller.repository.EmployeesRepository;
 import com.asinfo.test.practice.model.service.EmployeesService;
 import com.asinfo.test.practice.view.EmployeesPresenter;
@@ -17,18 +18,22 @@ public class EmployeesServiceImpl implements EmployeesService {
     EmployeesRepository employeesRepository;
 
     @Override
+    public void saveEmployees(EmployeesPresenter employeesPresenter) {
+        Employees employees = Employees.builder()
+                .fullName(employeesPresenter.getFullName())
+                .build();
+        employeesRepository.save(employees);
+    }
+
+    @Override
     public List<EmployeesPresenter> getAllEmployees() {
         return employeesRepository.findByAllEmployees().stream()
                 .filter(Objects::nonNull)
                 .map(item -> EmployeesPresenter.builder()
-                        .id(item.getId())
+                        .idEmployee(item.getIdEmployee())
                         .fullName(item.getFullName())
                         .build()).collect(Collectors.toList());
 
     }
 
-    @Override
-    public void saveEmployees() {
-
-    }
 }

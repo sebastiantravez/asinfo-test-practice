@@ -3,6 +3,34 @@
                    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
                    xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet id="20210513-01" author="sebastian.travez">
+        <createTable tableName="employees">
+            <column name="id_employee" type="UUID">
+                <constraints nullable="false" primaryKeyName="employee_pkey" primaryKey="true"></constraints>
+            </column>
+            <column name="full_name" type="VARCHAR(100)"></column>
+        </createTable>
+    </changeSet>
 
+    <changeSet id="20210513-02" author="sebastian.travez">
+        <createTable tableName="department">
+            <column name="id_department" type="UUID">
+                <constraints nullable="false" primaryKeyName="department_pkey" primaryKey="true"></constraints>
+            </column>
+            <column name="id_employee" type="UUID">
+                <constraints nullable="false"></constraints>
+            </column>
+            <column name="name_department" type="VARCHAR(100)"></column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="department" baseColumnNames="id_employee"
+                                 constraintName="fk_employee_department"
+                                 referencedTableName="employees"
+                                 referencedColumnNames="id_employee"></addForeignKeyConstraint>
+    </changeSet>
+
+    <changeSet id="20210513-03" author="sebastian.travez">
+        <addUniqueConstraint tableName="department" columnNames="id_employee"
+                             constraintName="uk_id_employee"/>
+    </changeSet>
 
 </databaseChangeLog>

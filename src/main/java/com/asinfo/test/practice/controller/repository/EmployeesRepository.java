@@ -11,6 +11,6 @@ import java.util.UUID;
 @Repository
 public interface EmployeesRepository extends CrudRepository<Employees, UUID> {
 
-    @Query("FROM employees")
+    @Query("FROM Employees")
     List<Employees> findByAllEmployees();
 }
