@@ -41,12 +41,10 @@ public class Employees {
     @Column(name = "state")
     private StateEmployee stateType;
 
-    @MapsId
     @JoinColumn(name = "id_department")
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     private Department department;
 
-    @MapsId
     @JoinColumn(name = "id_user")
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     private Users users;
