@@ -1,5 +1,6 @@
 package com.asinfo.test.practice.controller.entity;
 
+import com.asinfo.test.practice.controller.enums.IdentificationType;
 import com.asinfo.test.practice.controller.enums.StateEmployee;
 import lombok.*;
 
@@ -25,6 +26,11 @@ public class Employees {
     @Column(name = "full_name")
     private String fullName;
 
+    @Enumerated(EnumType.STRING)
+    private IdentificationType identificationType;
+
+    private String identificationNumber;
+
     @Column(name = "salary")
     private BigDecimal salary;
 
@@ -39,4 +45,9 @@ public class Employees {
     @JoinColumn(name = "id_department")
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     private Department department;
+
+    @MapsId
+    @JoinColumn(name = "id_user")
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
+    private Users users;
 }

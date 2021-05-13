@@ -1,10 +1,11 @@
-package com.asinfo.test.practice.model.service.implement;
+package com.asinfo.test.practice.model.service.impl;
 
 import com.asinfo.test.practice.controller.entity.Employees;
 import com.asinfo.test.practice.controller.repository.EmployeesRepository;
 import com.asinfo.test.practice.model.service.EmployeesService;
 import com.asinfo.test.practice.view.DepartmentPresenter;
 import com.asinfo.test.practice.view.EmployeesPresenter;
+import com.asinfo.test.practice.view.UsersPresenter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,8 @@ public class EmployeesServiceImpl implements EmployeesService {
                 .map(item -> EmployeesPresenter.builder()
                         .idEmployee(item.getIdEmployee())
                         .fullName(item.getFullName())
+                        .identificationType(item.getIdentificationType())
+                        .identificationNumber(item.getIdentificationNumber())
                         .salary(item.getSalary())
                         .date(item.getDate())
                         .state(item.getStateType())

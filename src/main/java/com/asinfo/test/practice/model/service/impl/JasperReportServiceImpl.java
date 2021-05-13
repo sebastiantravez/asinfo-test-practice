@@ -1,4 +1,4 @@
-package com.asinfo.test.practice.model.service.implement;
+package com.asinfo.test.practice.model.service.impl;
 
 import com.asinfo.test.practice.model.service.JasperReportService;
 import org.springframework.core.io.ClassPathResource;

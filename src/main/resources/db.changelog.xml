@@ -18,14 +18,29 @@
                 <constraints nullable="false" primaryKeyName="employee_pkey" primaryKey="true"></constraints>
             </column>
             <column name="id_department" type="UUID">
-                <constraints nullable="false"></constraints>
+                <constraints nullable="true"></constraints>
+            </column>
+            <column name="id_user" type="UUID">
+                <constraints nullable="true"></constraints>
             </column>
             <column name="full_name" type="VARCHAR(100)"></column>
+            <column name="identification_type" type="VARCHAR(50)"></column>
+            <column name="identification_number" type="VARCHAR(100)"></column>
+            <column name="salary" type="numeric(16, 6)"></column>
+            <column name="date" type="TIMESTAMP"></column>
+            <column name="state" type="VARCHAR(20)"></column>
         </createTable>
-        <addForeignKeyConstraint baseTableName="employees" baseColumnNames="id_department"
-                                 constraintName="fk_employee_department"
-                                 referencedTableName="department"
-                                 referencedColumnNames="id_department"></addForeignKeyConstraint>
+    </changeSet>
+
+    <changeSet id="20210513-03" author="sebastian.travez">
+        <createTable tableName="users">
+            <column name="id_user" type="UUID">
+                <constraints nullable="false" primaryKeyName="id_users_pkey" primaryKey="true"></constraints>
+            </column>
+            <column name="user" type="VARCHAR(100)"></column>
+            <column name="password" type="VARCHAR(100)"></column>
+            <column name="token" type="VARCHAR(250)"></column>
+        </createTable>
     </changeSet>
 
     <changeSet id="20210513-04" author="sebastian.travez">
@@ -48,16 +63,31 @@
             <column name="id_employee" value="4ab538fb-4e5a-4fa4-862e-960bb3c3496b"></column>
             <column name="id_department" value="50630c1f-5f69-488c-b622-41c7d56a4dfb"></column>
             <column name="full_name" value="SEBASTIAN TRAVEZ"></column>
+            <column name="identification_type" value="DNI"></column>
+            <column name="identification_number" value="1724022437"></column>
+            <column name="salary" value="600.00"></column>
+            <column name="date" valueDate="CURRENT_DATE"></column>
+            <column name="state" value="ACTIVE"></column>
         </insert>
         <insert tableName="employees">
             <column name="id_employee" value="e7b46c48-6cab-4677-a3a3-44cf0f6f7ceb"></column>
             <column name="id_department" value="ad5545d6-4610-4713-a603-86fbf975eff9"></column>
             <column name="full_name" value="JUAN MONTALVO"></column>
+            <column name="identification_type" value="DNI"></column>
+            <column name="identification_number" value="1724022437"></column>
+            <column name="salary" value="600.00"></column>
+            <column name="date" valueDate="CURRENT_DATE"></column>
+            <column name="state" value="ACTIVE"></column>
         </insert>
         <insert tableName="employees">
             <column name="id_employee" value="d9e385e3-90b7-4d56-b6f7-99cf80427884"></column>
             <column name="id_department" value="9b340592-9291-48fb-b282-f04ce36b6fd6"></column>
             <column name="full_name" value="CRISITNA GARCIA"></column>
+            <column name="identification_type" value="DNI"></column>
+            <column name="identification_number" value="1724022437"></column>
+            <column name="salary" value="600.00"></column>
+            <column name="date" valueDate="CURRENT_DATE"></column>
+            <column name="state" value="ACTIVE"></column>
         </insert>
     </changeSet>
 
