@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Setter
 @Getter
@@ -12,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UsersPresenter {
 
+    private UUID idUser;
     private String user;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)

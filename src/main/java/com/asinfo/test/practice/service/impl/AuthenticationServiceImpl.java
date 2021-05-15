@@ -21,6 +21,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Users users = usersRepository.findByUserAndPassword(user, password);
         if (users != null) {
             return UsersPresenter.builder()
+                    .idUser(users.getIdUser())
                     .user(users.getUser())
                     .usersRolesPresenters(users.getRoles().stream().map(
                             item -> UsersRolesPresenter.builder()

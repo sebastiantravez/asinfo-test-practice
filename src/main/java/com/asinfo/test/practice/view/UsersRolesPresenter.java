@@ -13,8 +13,8 @@ import java.util.UUID;
 public class UsersRolesPresenter {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private UUID id_user;
+    private UUID idUser;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private UUID id_rol;
+    private UUID idRol;
     private String name;
 }
