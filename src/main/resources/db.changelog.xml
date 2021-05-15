@@ -3,6 +3,7 @@
                    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
                    xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
     <changeSet id="20210513-01" author="sebastian.travez">
         <createTable tableName="business">
             <column name="id_business" type="UUID">
@@ -22,6 +23,15 @@
     </changeSet>
 
     <changeSet id="20210513-03" author="sebastian.travez">
+        <createTable tableName="charges">
+            <column name="id_charge" type="UUID">
+                <constraints nullable="false" primaryKeyName="id_charge_pkey" primaryKey="true"></constraints>
+            </column>
+            <column name="name" type="VARCHAR(100)"></column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20210513-04" author="sebastian.travez">
         <createTable tableName="employees">
             <column name="id_employee" type="UUID">
                 <constraints nullable="false" primaryKeyName="employee_pkey" primaryKey="true"></constraints>
@@ -42,6 +52,7 @@
             <column name="identification_type" type="VARCHAR(50)"></column>
             <column name="identification_number" type="VARCHAR(100)"></column>
             <column name="salary" type="numeric(16, 6)"></column>
+            <column name="email" type="VARCHAR(100)"></column>
             <column name="date" type="TIMESTAMP"></column>
             <column name="state" type="VARCHAR(20)"></column>
         </createTable>
@@ -49,11 +60,15 @@
                                  constraintName="fk_employee_business"
                                  referencedTableName="business"
                                  referencedColumnNames="id_business"></addForeignKeyConstraint>
+        <addForeignKeyConstraint baseTableName="employees" baseColumnNames="id_charge"
+                                 constraintName="fk_employee_charges"
+                                 referencedTableName="charges"
+                                 referencedColumnNames="id_charge"></addForeignKeyConstraint>
         <addUniqueConstraint tableName="employees" columnNames="identification_number"
                              constraintName="ck_identification_number"/>
     </changeSet>
 
-    <changeSet id="20210513-04" author="sebastian.travez">
+    <changeSet id="20210513-05" author="sebastian.travez">
         <createTable tableName="users">
             <column name="id_user" type="UUID">
                 <constraints nullable="false" primaryKeyName="id_users_pkey" primaryKey="true"></constraints>
@@ -65,7 +80,7 @@
                              constraintName="ck_user"/>
     </changeSet>
 
-    <changeSet id="20210513-05" author="sebastian.travez">
+    <changeSet id="20210513-06" author="sebastian.travez">
         <createTable tableName="roles">
             <column name="id_rol" type="UUID">
                 <constraints nullable="false" primaryKeyName="id_rol_pkey" primaryKey="true"></constraints>
@@ -74,7 +89,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="20210513-06" author="sebastian.travez">
+    <changeSet id="20210513-07" author="sebastian.travez">
         <createTable tableName="users_roles">
             <column name="id_user" type="UUID">
                 <constraints nullable="false"></constraints>
@@ -82,15 +97,6 @@
             <column name="id_rol" type="UUID">
                 <constraints nullable="false"></constraints>
             </column>
-        </createTable>
-    </changeSet>
-
-    <changeSet id="20210513-07" author="sebastian.travez">
-        <createTable tableName="charges">
-            <column name="id_charge" type="UUID">
-                <constraints nullable="false" primaryKeyName="id_charge_pkey" primaryKey="true"></constraints>
-            </column>
-            <column name="name" type="VARCHAR(100)"></column>
         </createTable>
     </changeSet>
 

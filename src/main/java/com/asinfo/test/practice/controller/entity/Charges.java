@@ -22,6 +22,4 @@ public class Charges {
     @Column(name = "name")
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "charges")
-    private Employees employees;
 }

@@ -3,9 +3,7 @@ package com.asinfo.test.practice.controller.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "roles")
@@ -26,5 +24,5 @@ public class Roles {
 
     @Builder.Default
     @ManyToMany(mappedBy = "roles", cascade = { CascadeType.ALL })
-    private Set<Users> users = new HashSet<>();
+    private List<Users> users = new ArrayList<>();
 }

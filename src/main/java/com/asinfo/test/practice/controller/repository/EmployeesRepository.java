@@ -8,17 +8,27 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface EmployeesRepository extends CrudRepository<Employees, UUID> {
 
-    @Query("FROM Employees")
-    List<Employees> findByAllEmployees();
+    @Query(value = "SELECT * " +
+            " FROM employees e, employees_discriminate d, charges c" +
+            " WHERE e.id_employee = d.id_employee" +
+            " AND e.id_charge = c.id_charge" +
+            " AND e.state = 'ACTIVE'" +
+            " AND d.id_supervisor = :idSupervisor", nativeQuery = true)
+    List<Employees> findEmployeesBySupervisor(@Param("idSupervisor") UUID idSupervisor);
 
-    Employees findByIdentificationTypeAndIdentificationNumber(@Param("identificationType") IdentificationType identificationType,
+    Optional<Employees> findByIdentificationTypeAndIdentificationNumber(@Param("identificationType") IdentificationType identificationType,
                                                               @Param("identificationNumber") String identificationNumber);
 
-    @Query("FROM Employees e WHERE e.users.idUser =: idUser")
-    Employees findByIdUser(@Param("idUser") UUID idUser);
+    @Query("SELECT e" +
+            " FROM Employees as e " +
+            " WHERE e.idUser = :id ")
+    Employees findDataUsersByIdUser(@Param("id") UUID id);
+
+    Optional<Employees> findByEmail(@Param("email") String email);
 }

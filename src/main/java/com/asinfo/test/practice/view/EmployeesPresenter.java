@@ -31,6 +31,8 @@ public class EmployeesPresenter {
 
     private BigDecimal salary;
 
+    private String email;
+
     private IdentificationType identificationType;
 
     private String identificationNumber;

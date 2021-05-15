@@ -5,6 +5,7 @@ import com.asinfo.test.practice.controller.enums.StateEmployee;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
@@ -23,6 +24,15 @@ public class Employees {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idEmployee;
 
+    @Column(name = "id_user")
+    private UUID idUser;
+
+    @Column(name = "id_charge")
+    private UUID idCharge;
+
+    @Column(name = "id_department")
+    private UUID idDepartment;
+
     @Column(name = "full_name")
     private String fullName;
 
@@ -34,6 +44,10 @@ public class Employees {
     @Column(name = "salary")
     private BigDecimal salary;
 
+    @Email
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "date")
     private Date date;
 
@@ -41,17 +55,8 @@ public class Employees {
     @Column(name = "state")
     private StateEmployee stateType;
 
-    @JoinColumn(name = "id_department")
-    @OneToOne(cascade = CascadeType.ALL, optional = false)
-    private Department department;
-
-    @JoinColumn(name = "id_charge")
-    @OneToOne(cascade = CascadeType.ALL, optional = false)
-    private Charges charges;
-
-    @JoinColumn(name = "id_user")
-    @OneToOne(cascade = CascadeType.ALL, optional = false)
-    private Users users;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "employees")
+    private EmployeesDiscriminate employeesDiscriminate;
 
     @ManyToOne
     @JoinColumn(name = "id_business")

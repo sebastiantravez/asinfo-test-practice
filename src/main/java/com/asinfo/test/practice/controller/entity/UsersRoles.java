@@ -6,21 +6,21 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "department")
+@Table(name = "users_roles")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Department {
+public class UsersRoles {
 
     @Id
-    @Column(name = "id_department")
+    @Column(name = "id_user")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID idDepartment;
+    private UUID idUser;
 
-    @Column(name = "name_department")
-    private String nameDepartment;
-
-
+    @Column(name = "id_rol")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID idRol;
 }
+

@@ -27,9 +27,6 @@ public class Users {
     @Column(name = "password")
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "users")
-    private Employees employees;
-
     @ManyToMany()
     @Builder.Default
     @JoinTable(name = "users_roles", joinColumns = { @JoinColumn(name = "id_user") }, inverseJoinColumns = {

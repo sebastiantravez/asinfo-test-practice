@@ -3,11 +3,16 @@ package com.asinfo.test.practice.service;
 import com.asinfo.test.practice.view.EmployeesPresenter;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface EmployeesService {
 
-    void saveEmployees(EmployeesPresenter employeesPresenter);
+    EmployeesPresenter saveEmployees(EmployeesPresenter employeesPresenter);
 
-    List<EmployeesPresenter> getAllEmployees();
+    List<EmployeesPresenter> getAllEmployees(UUID idSupervisor);
+
+    void updateEmployee(EmployeesPresenter employeesPresenter);
+
+    void deleteEmployee(UUID id);
 
 }

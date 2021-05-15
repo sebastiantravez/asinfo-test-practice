@@ -2,10 +2,7 @@ package com.asinfo.test.practice.controller.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
@@ -22,4 +19,9 @@ public class EmployeesDiscriminate {
 
     @Column(name = "id_supervisor")
     private UUID idSupervisor;
+
+    @JoinColumn(name = "id_employee")
+    @OneToOne(cascade = CascadeType.ALL)
+    private Employees employees;
+
 }
