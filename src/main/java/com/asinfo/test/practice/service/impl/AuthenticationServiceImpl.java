@@ -18,11 +18,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public UsersPresenter authentication(String user, String password) {
-        Users users = usersRepository.findByUserAndPassword(user, password);
+        Users users = usersRepository.findByUserNameAndPassword(user, password);
         if (users != null) {
             return UsersPresenter.builder()
                     .idUser(users.getIdUser())
-                    .user(users.getUser())
+                    .userName(users.getUserName())
                     .usersRolesPresenters(users.getRoles().stream().map(
                             item -> UsersRolesPresenter.builder()
                                     .name(item.getName())

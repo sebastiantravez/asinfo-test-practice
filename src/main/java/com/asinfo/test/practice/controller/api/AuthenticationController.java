@@ -17,7 +17,7 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public UsersPresenter authenticationUser(@RequestBody @NotNull UsersPresenter usersPresenter) {
-        String user = usersPresenter.getUser();
+        String user = usersPresenter.getUserName();
         String password = usersPresenter.getPassword();
         return authenticationService.authentication(user, password);
     }

@@ -17,5 +17,5 @@ public class DepartmentPresenter {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private UUID idDepartment;
 
-    private String nameDepartment;
+        private String nameDepartment;
 }

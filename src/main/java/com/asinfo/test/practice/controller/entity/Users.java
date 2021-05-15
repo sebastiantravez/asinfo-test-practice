@@ -21,8 +21,8 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idUser;
 
-    @Column(name = "user")
-    private String user;
+    @Column(name = "user_name")
+    private String userName;
 
     @Column(name = "password")
     private String password;

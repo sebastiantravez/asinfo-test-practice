@@ -14,14 +14,11 @@ import java.util.UUID;
 public class UsersPresenter {
 
     private UUID idUser;
-    private String user;
-
+    private String userName;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String password;
-
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String token;
-
     private List<UsersRolesPresenter> usersRolesPresenters;
 
 }

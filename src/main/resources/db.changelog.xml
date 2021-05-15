@@ -58,10 +58,10 @@
             <column name="id_user" type="UUID">
                 <constraints nullable="false" primaryKeyName="id_users_pkey" primaryKey="true"></constraints>
             </column>
-            <column name="user" type="VARCHAR(100)"></column>
+            <column name="user_name" type="VARCHAR(100)"></column>
             <column name="password" type="VARCHAR(100)"></column>
         </createTable>
-        <addUniqueConstraint tableName="users" columnNames="user"
+        <addUniqueConstraint tableName="users" columnNames="user_name"
                              constraintName="ck_user"/>
     </changeSet>
 
@@ -110,11 +110,17 @@
     </changeSet>
 
     <changeSet id="20210513-09" author="sebastian.travez">
+        <createTable tableName="employees_discriminate">
+            <column name="id_employee" type="UUID"></column>
+            <column name="id_supervisor" type="UUID"></column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20210513-10" author="sebastian.travez">
         <insert tableName="business">
             <column name="id_business" value="559cc947-719a-4d17-b4fa-398010ac6a15"></column>
             <column name="business_name" value="ASINFO S.A."></column>
         </insert>
-
 
         <insert tableName="charges">
             <column name="id_charge" value="52ce3946-6f77-44fb-9281-eff2637837d4"></column>
@@ -131,12 +137,12 @@
 
         <insert tableName="users">
             <column name="id_user" value="13283705-6ebb-4aa4-a3ca-128e8804d3c8"></column>
-            <column name="user" value="admin"></column>
+            <column name="user_name" value="admin"></column>
             <column name="password" value="admin"></column>
         </insert>
         <insert tableName="users">
             <column name="id_user" value="f3a55966-e551-42ff-a7b9-e56791bce34a"></column>
-            <column name="user" value="super1"></column>
+            <column name="user_name" value="super1"></column>
             <column name="password" value="12345"></column>
         </insert>
 
