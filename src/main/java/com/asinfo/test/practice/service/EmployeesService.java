@@ -19,4 +19,5 @@ public interface EmployeesService {
 
     List<EmployeesPresenter> searchEmployees(String searchValue);
 
+    List<EmployeesPresenter> getAllEmployeesSupervisor();
 }

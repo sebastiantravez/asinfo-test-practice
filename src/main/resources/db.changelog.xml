@@ -153,15 +153,26 @@
         </insert>
 
         <insert tableName="employees">
+            <column name="id_employee" value="ab352619-ba82-46f6-8f60-2cc669d9f621"></column>
+            <column name="id_department" value="50630c1f-5f69-488c-b622-41c7d56a4dfb"></column>
+            <column name="id_business" value="559cc947-719a-4d17-b4fa-398010ac6a15"></column>
+            <column name="id_user" value="13283705-6ebb-4aa4-a3ca-128e8804d3c8"></column>
+            <column name="id_charge" value="52ce3946-6f77-44fb-9281-eff2637837d4"></column>
+            <column name="full_name" value="ADMINISTRADOR"></column>
+            <column name="identification_type" value="DNI"></column>
+            <column name="identification_number" value="000000000"></column>
+            <column name="date" valueDate="CURRENT_DATE"></column>
+        </insert>
+
+        <insert tableName="employees">
             <column name="id_employee" value="4ab538fb-4e5a-4fa4-862e-960bb3c3496b"></column>
             <column name="id_department" value="50630c1f-5f69-488c-b622-41c7d56a4dfb"></column>
             <column name="id_business" value="559cc947-719a-4d17-b4fa-398010ac6a15"></column>
             <column name="id_user" value="f3a55966-e551-42ff-a7b9-e56791bce34a"></column>
             <column name="id_charge" value="14184c5c-9fb4-4e1b-8077-177a2f79d0d8"></column>
-            <column name="full_name" value="SEBASTIAN TRAVEZ"></column>
+            <column name="full_name" value="ALBERTO NUÑEZ"></column>
             <column name="identification_type" value="DNI"></column>
             <column name="identification_number" value="1724022227"></column>
-            <column name="salary" value="600.00"></column>
             <column name="date" valueDate="CURRENT_DATE"></column>
             <column name="state" value="ACTIVE"></column>
         </insert>
@@ -194,6 +205,13 @@
         <insert tableName="users_roles">
             <column name="id_user" value="13283705-6ebb-4aa4-a3ca-128e8804d3c8"></column>
             <column name="id_rol" value="ad5545d6-4610-4713-a603-86fbf975eff9"></column>
+        </insert>
+    </changeSet>
+
+    <changeSet id="20210516-11" author="sebastian.travez">
+        <insert tableName="employees_discriminate">
+            <column name="id_employee" value="4ab538fb-4e5a-4fa4-862e-960bb3c3496b"></column>
+            <column name="id_supervisor" value="4ab538fb-4e5a-4fa4-862e-960bb3c3496b"></column>
         </insert>
     </changeSet>
 

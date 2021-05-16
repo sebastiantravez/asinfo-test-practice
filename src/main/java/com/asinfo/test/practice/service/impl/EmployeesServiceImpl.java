@@ -34,15 +34,15 @@ public class EmployeesServiceImpl implements EmployeesService {
     @Override
     public EmployeesPresenter saveEmployees(EmployeesPresenter employeesPresenter) {
         try {
-            Optional<Employees> employeeValidate = employeesRepository.findByIdentificationTypeAndIdentificationNumber(
+            Employees employeeValidate = employeesRepository.findByIdentificationTypeAndIdentificationNumber(
                     employeesPresenter.getIdentificationType(),
                     employeesPresenter.getIdentificationNumber()
             );
-            if (employeeValidate.isPresent()) {
+            if (employeeValidate != null) {
                 throw new ValidationException("Empleado con número de identificacón ya existe");
             }
-            Optional<Employees> employeeValidateEmail = employeesRepository.findByEmail(employeesPresenter.getEmail());
-            if (employeeValidateEmail.isPresent()) {
+            Employees employeeValidateEmail = employeesRepository.findByEmail(employeesPresenter.getEmail());
+            if (employeeValidateEmail != null) {
                 throw new ValidationException("Empleado con email ya existe");
             }
 
@@ -62,7 +62,7 @@ public class EmployeesServiceImpl implements EmployeesService {
                     .idUser(userEmployee.getIdUser())
                     .idCharge(charges.getIdCharge())
                     .idEmployee(charges.getIdCharge())
-                    .fullName(employeesPresenter.getFullName())
+                    .fullName(employeesPresenter.getFullName().toUpperCase())
                     .identificationType(employeesPresenter.getIdentificationType())
                     .identificationNumber(employeesPresenter.getIdentificationNumber())
                     .email(employeesPresenter.getEmail())
@@ -75,16 +75,25 @@ public class EmployeesServiceImpl implements EmployeesService {
 
             employeesRepository.save(employeeSave);
 
-            Optional<Employees> employee = employeesRepository.findByIdentificationTypeAndIdentificationNumber(
+            Employees employee = employeesRepository.findByIdentificationTypeAndIdentificationNumber(
                     employeesPresenter.getIdentificationType(),
                     employeesPresenter.getIdentificationNumber());
-            Employees employeeSupervisor = employeesRepository.findDataUsersByIdUser(employeesPresenter.getUsersPresenter().getIdUser());
-            EmployeesDiscriminate employeesDiscriminate = EmployeesDiscriminate.builder()
-                    .idEmployee(employee.get().getIdEmployee())
-                    .idSupervisor(employeeSupervisor.getIdEmployee())
-                    .build();
 
-            employeeDiscriminateRepository.save(employeesDiscriminate);
+
+            if (employeesPresenter.getChargesPresenter().getName().equals(ChargesType.SUPERVISOR.name())) {
+                EmployeesDiscriminate employeesDiscriminate = EmployeesDiscriminate.builder()
+                        .idEmployee(employee.getIdEmployee())
+                        .idSupervisor(employee.getIdEmployee())
+                        .build();
+                employeeDiscriminateRepository.save(employeesDiscriminate);
+            } else if (employeesPresenter.getChargesPresenter().getName().equals(ChargesType.OPERATOR.name())) {
+                Employees employeeSupervisor = employeesRepository.findDataUsersByIdUser(employeesPresenter.getUsersPresenter().getIdUser());
+                EmployeesDiscriminate employeesDiscriminate = EmployeesDiscriminate.builder()
+                        .idEmployee(employee.getIdEmployee())
+                        .idSupervisor(employeeSupervisor.getIdEmployee())
+                        .build();
+                employeeDiscriminateRepository.save(employeesDiscriminate);
+            }
 
             /*employeesPresenter.getUsersPresenter().getUsersRolesPresenters().forEach(item -> {
                 UsersRoles usersRoles = UsersRoles.builder()
@@ -124,6 +133,10 @@ public class EmployeesServiceImpl implements EmployeesService {
                                 .idDepartment(departmentsRepository.findById(item.getIdDepartment()).get().getIdDepartment())
                                 .nameDepartment(departmentsRepository.findById(item.getIdDepartment()).get().getNameDepartment())
                                 .build())
+                        .chargesPresenter(ChargesPresenter.builder()
+                                .idCharge(chargesRepository.findById(item.getIdCharge()).get().getIdCharge())
+                                .name(chargesRepository.findById(item.getIdCharge()).get().getName())
+                                .build())
                         .build()).collect(Collectors.toList());
 
     }
@@ -152,8 +165,6 @@ public class EmployeesServiceImpl implements EmployeesService {
 
     @Override
     public List<EmployeesPresenter> getAllEmployeesWithSupervisor() {
-        List<Employees> objects = employeesRepository.findEmployeesWithSupervisor();
-
         return employeesRepository.findEmployeesWithSupervisor().stream().map(
                 item -> EmployeesPresenter.builder()
                         .fullName(item.getFullName())
@@ -165,6 +176,10 @@ public class EmployeesServiceImpl implements EmployeesService {
                                 .idDepartment(departmentsRepository.findById(item.getIdDepartment()).get().getIdDepartment())
                                 .nameDepartment(departmentsRepository.findById(item.getIdDepartment()).get().getNameDepartment())
                                 .build())
+                        .chargesPresenter(ChargesPresenter.builder()
+                                .idCharge(chargesRepository.findById(item.getIdCharge()).get().getIdCharge())
+                                .name(chargesRepository.findById(item.getIdCharge()).get().getName())
+                                .build())
                         .nameSupervisor(employeesRepository.findById(
                                 employeeDiscriminateRepository.findEmployeeSupervisorByIdEmployee(
                                         item.getIdEmployee()).getIdSupervisor()).get().getFullName())
@@ -174,7 +189,7 @@ public class EmployeesServiceImpl implements EmployeesService {
 
     @Override
     public List<EmployeesPresenter> searchEmployees(String searchValue) {
-        return employeesRepository.searchEmployees(searchValue.toUpperCase()).stream()
+        return employeesRepository.searchEmployees(searchValue).stream()
                 .filter(Objects::nonNull)
                 .map(item -> EmployeesPresenter.builder()
                         .idEmployee(item.getIdEmployee())
@@ -191,6 +206,37 @@ public class EmployeesServiceImpl implements EmployeesService {
                         .departmentPresenter(DepartmentPresenter.builder()
                                 .idDepartment(departmentsRepository.findById(item.getIdDepartment()).get().getIdDepartment())
                                 .nameDepartment(departmentsRepository.findById(item.getIdDepartment()).get().getNameDepartment())
+                                .build())
+                        .chargesPresenter(ChargesPresenter.builder()
+                                .idCharge(chargesRepository.findById(item.getIdCharge()).get().getIdCharge())
+                                .name(chargesRepository.findById(item.getIdCharge()).get().getName())
+                                .build())
+                        .build()).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<EmployeesPresenter> getAllEmployeesSupervisor() {
+        return employeesRepository.findEmployeesSupervisor().stream()
+                .filter(Objects::nonNull)
+                .map(item -> EmployeesPresenter.builder()
+                        .idEmployee(item.getIdEmployee())
+                        .fullName(item.getFullName())
+                        .identificationType(item.getIdentificationType())
+                        .identificationNumber(item.getIdentificationNumber())
+                        .salary(item.getSalary())
+                        .email(item.getEmail())
+                        .date(item.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
+                        .state(item.getStateType())
+                        .businessPresenter(BusinessPresenter.builder()
+                                .businessName(item.getBusiness().getBusinessName())
+                                .build())
+                        .departmentPresenter(DepartmentPresenter.builder()
+                                .idDepartment(departmentsRepository.findById(item.getIdDepartment()).get().getIdDepartment())
+                                .nameDepartment(departmentsRepository.findById(item.getIdDepartment()).get().getNameDepartment())
+                                .build())
+                        .chargesPresenter(ChargesPresenter.builder()
+                                .idCharge(chargesRepository.findById(item.getIdCharge()).get().getIdCharge())
+                                .name(chargesRepository.findById(item.getIdCharge()).get().getName())
                                 .build())
                         .build()).collect(Collectors.toList());
     }

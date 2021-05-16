@@ -31,7 +31,7 @@ public class EmployeesController {
         if (bindingResult.hasErrors())
             return new ResponseEntity(new MessagePresenter("Datos inválidos"), HttpStatus.BAD_REQUEST);
         employeesService.saveEmployees(employeesPresenter);
-        return new ResponseEntity(new MessagePresenter("El producto fue guardado"), HttpStatus.CREATED);
+        return new ResponseEntity(new MessagePresenter("Registro creado"), HttpStatus.CREATED);
     }
 
     @GetMapping("/getAllEmployees")
@@ -54,5 +54,10 @@ public class EmployeesController {
     @GetMapping("/searchEmployees/{searchValue}")
     public List<EmployeesPresenter> searchEmployees(@PathVariable("searchValue") String searchValue) {
         return employeesService.searchEmployees(searchValue);
+    }
+
+    @GetMapping("/getAllEmployeesSupervisor")
+    public List<EmployeesPresenter> getAllEmployees() {
+        return employeesService.getAllEmployeesSupervisor();
     }
 }
