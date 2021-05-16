@@ -29,7 +29,8 @@ public class EmployeesServiceImpl implements EmployeesService {
     BusinessRepository businessRepository;
     @Autowired
     EmployeeDiscriminateRepository employeeDiscriminateRepository;
-
+    @Autowired
+    UsersRolesRepository usersRolesRepository;
 
     @Override
     public EmployeesPresenter saveEmployees(EmployeesPresenter employeesPresenter) {
@@ -67,6 +68,7 @@ public class EmployeesServiceImpl implements EmployeesService {
                     .identificationNumber(employeesPresenter.getIdentificationNumber())
                     .email(employeesPresenter.getEmail())
                     .salary(employeesPresenter.getSalary())
+                    .employeeType(employeesPresenter.getChargesPresenter().getName().equals(ChargesType.OPERATOR.name()) ? "O" : "S")
                     .date(java.util.Date.from(employeesPresenter.getDate().atStartOfDay()
                             .atZone(ZoneId.systemDefault())
                             .toInstant()))
@@ -95,13 +97,13 @@ public class EmployeesServiceImpl implements EmployeesService {
                 employeeDiscriminateRepository.save(employeesDiscriminate);
             }
 
-            /*employeesPresenter.getUsersPresenter().getUsersRolesPresenters().forEach(item -> {
+            employeesPresenter.getUsersPresenter().getRolesPresenter().forEach(item -> {
                 UsersRoles usersRoles = UsersRoles.builder()
                         .idUser(employee.getIdUser())
                         .idRol(item.getIdRol())
                         .build();
                 usersRolesRepository.save(usersRoles);
-            });*/
+            });
 
             return employeesPresenter;
         } catch (Exception e) {

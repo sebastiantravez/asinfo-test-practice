@@ -51,6 +51,9 @@ public class Employees {
     @Column(name = "date")
     private Date date;
 
+    @Column(name = "employee_type")
+    private String employeeType;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "state")
     private StateEmployee stateType;

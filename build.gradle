@@ -27,8 +27,8 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok:1.18.20'
 	testCompileOnly 'org.projectlombok:lombok:1.18.20'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
-
 	implementation 'net.sf.jasperreports:jasperreports:6.15.0'
+
 	implementation 'com.lowagie:itext:2.1.7'
 }
 

@@ -27,7 +27,7 @@ public interface EmployeesRepository extends CrudRepository<Employees, UUID> {
     List<Employees> findEmployeesBySupervisor(@Param("idSupervisor") UUID idSupervisor);
 
     Employees findByIdentificationTypeAndIdentificationNumber(@Param("identificationType") IdentificationType identificationType,
-                                                                        @Param("identificationNumber") String identificationNumber);
+                                                              @Param("identificationNumber") String identificationNumber);
 
     @Query("SELECT e" +
             " FROM Employees as e " +
@@ -45,6 +45,7 @@ public interface EmployeesRepository extends CrudRepository<Employees, UUID> {
             " FROM employees e, employees_discriminate t, charges c" +
             " WHERE e.id_employee = t.id_employee" +
             " AND e.id_charge = c.id_charge" +
+            " AND e.employee_type = 'O'" +
             " ORDER BY e.date DESC", nativeQuery = true)
     List<Employees> findEmployeesWithSupervisor();
 

@@ -6,6 +6,7 @@ import com.asinfo.test.practice.view.RolesPresenter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,7 +18,7 @@ public class RolesServiceImpl implements RolesService {
 
     @Override
     public List<RolesPresenter> getAllRoles() {
-        return rolesRepository.findByAllRoles().stream().map(
+        return rolesRepository.getAllRoles().stream().map(
                 item -> RolesPresenter.builder()
                         .idRol(item.getIdRol())
                         .name(item.getName())

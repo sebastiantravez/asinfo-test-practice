@@ -16,7 +16,6 @@ public class UsersRoles {
 
     @Id
     @Column(name = "id_user")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idUser;
 
     @Column(name = "id_rol")

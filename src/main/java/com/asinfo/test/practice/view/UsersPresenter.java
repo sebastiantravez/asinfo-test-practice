@@ -19,6 +19,7 @@ public class UsersPresenter {
     private String password;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String token;
+    private List<RolesPresenter> rolesPresenter;
     private List<UsersRolesPresenter> usersRolesPresenters;
 
 }
