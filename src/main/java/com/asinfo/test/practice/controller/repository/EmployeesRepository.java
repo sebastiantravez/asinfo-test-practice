@@ -23,7 +23,7 @@ public interface EmployeesRepository extends CrudRepository<Employees, UUID> {
     List<Employees> findEmployeesBySupervisor(@Param("idSupervisor") UUID idSupervisor);
 
     Optional<Employees> findByIdentificationTypeAndIdentificationNumber(@Param("identificationType") IdentificationType identificationType,
-                                                              @Param("identificationNumber") String identificationNumber);
+                                                                        @Param("identificationNumber") String identificationNumber);
 
     @Query("SELECT e" +
             " FROM Employees as e " +
@@ -31,4 +31,7 @@ public interface EmployeesRepository extends CrudRepository<Employees, UUID> {
     Employees findDataUsersByIdUser(@Param("id") UUID id);
 
     Optional<Employees> findByEmail(@Param("email") String email);
+
+    @Query(value = "SELECT * FROM employees", nativeQuery = true)
+    List<Employees> findAllEmployeesWithSupervisor();
 }

@@ -145,4 +145,13 @@ public class EmployeesServiceImpl implements EmployeesService {
         employeesRepository.save(employee.get());
     }
 
+    @Override
+    public List<EmployeesPresenter> getAllEmployeesWithSupervisor() {
+        return employeesRepository.findAllEmployeesWithSupervisor().stream().map(
+                item -> EmployeesPresenter.builder()
+                        .fullName(item.getFullName())
+                        .build()
+        ).collect(Collectors.toList());
+    }
+
 }

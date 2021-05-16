@@ -15,4 +15,6 @@ public interface EmployeesService {
 
     void deleteEmployee(UUID id);
 
+    List<EmployeesPresenter> getAllEmployeesWithSupervisor();
+
 }

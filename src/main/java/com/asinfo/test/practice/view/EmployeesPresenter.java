@@ -48,4 +48,6 @@ public class EmployeesPresenter {
     private UsersPresenter usersPresenter;
 
     private DepartmentPresenter departmentPresenter;
+
+    private byte[] pdf;
 }
