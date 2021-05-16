@@ -12,9 +12,11 @@ import java.util.UUID;
 @Repository
 public interface EmployeeDiscriminateRepository extends CrudRepository<EmployeesDiscriminate, UUID> {
 
-    @Query(value = "SELECT d.* " +
-            " FROM employees e, employees_discriminate d " +
-            " WHERE e.id_employee = d.id_employee" +
-            " AND d.id_employee = :idEmployee ", nativeQuery = true)
+
+    @Query(value = "SELECT d " +
+            " FROM EmployeesDiscriminate d" +
+            " JOIN d.employees e" +
+            " WHERE d.idEmployee = e.idEmployee" +
+            " AND d.idEmployee = :idEmployee")
     EmployeesDiscriminate findEmployeeSupervisorByIdEmployee(@Param("idEmployee") UUID idEmployee);
 }
