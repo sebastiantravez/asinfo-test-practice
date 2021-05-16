@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ValidationException;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -66,7 +67,9 @@ public class EmployeesServiceImpl implements EmployeesService {
                     .identificationNumber(employeesPresenter.getIdentificationNumber())
                     .email(employeesPresenter.getEmail())
                     .salary(employeesPresenter.getSalary())
-                    .date(employeesPresenter.getDate())
+                    .date(java.util.Date.from(employeesPresenter.getDate().atStartOfDay()
+                            .atZone(ZoneId.systemDefault())
+                            .toInstant()))
                     .stateType(StateEmployee.ACTIVE)
                     .build();
 
@@ -112,7 +115,7 @@ public class EmployeesServiceImpl implements EmployeesService {
                         .identificationNumber(item.getIdentificationNumber())
                         .salary(item.getSalary())
                         .email(item.getEmail())
-                        .date(item.getDate())
+                        .date(item.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
                         .state(item.getStateType())
                         .businessPresenter(BusinessPresenter.builder()
                                 .businessName(item.getBusiness().getBusinessName())
@@ -134,7 +137,9 @@ public class EmployeesServiceImpl implements EmployeesService {
         employee.setEmail(employeesPresenter.getEmail());
         employee.setSalary(employeesPresenter.getSalary());
         employee.setIdDepartment(employeesPresenter.getDepartmentPresenter().getIdDepartment());
-        employee.setDate(employeesPresenter.getDate());
+        employee.setDate(java.util.Date.from(employeesPresenter.getDate().atStartOfDay()
+                .atZone(ZoneId.systemDefault())
+                .toInstant()));
         employeesRepository.save(employee);
     }
 
@@ -147,11 +152,47 @@ public class EmployeesServiceImpl implements EmployeesService {
 
     @Override
     public List<EmployeesPresenter> getAllEmployeesWithSupervisor() {
-        return employeesRepository.findAllEmployeesWithSupervisor().stream().map(
+        List<Employees> objects = employeesRepository.findEmployeesWithSupervisor();
+
+        return employeesRepository.findEmployeesWithSupervisor().stream().map(
                 item -> EmployeesPresenter.builder()
                         .fullName(item.getFullName())
+                        .identificationNumber(item.getIdentificationNumber())
+                        .salary(item.getSalary())
+                        .email(item.getEmail())
+                        .date(item.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
+                        .departmentPresenter(DepartmentPresenter.builder()
+                                .idDepartment(departmentsRepository.findById(item.getIdDepartment()).get().getIdDepartment())
+                                .nameDepartment(departmentsRepository.findById(item.getIdDepartment()).get().getNameDepartment())
+                                .build())
+                        .nameSupervisor(employeesRepository.findById(
+                                employeeDiscriminateRepository.findEmployeeSupervisorByIdEmployee(
+                                        item.getIdEmployee()).getIdSupervisor()).get().getFullName())
                         .build()
         ).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<EmployeesPresenter> searchEmployees(String searchValue) {
+        return employeesRepository.searchEmployees(searchValue.toUpperCase()).stream()
+                .filter(Objects::nonNull)
+                .map(item -> EmployeesPresenter.builder()
+                        .idEmployee(item.getIdEmployee())
+                        .fullName(item.getFullName())
+                        .identificationType(item.getIdentificationType())
+                        .identificationNumber(item.getIdentificationNumber())
+                        .salary(item.getSalary())
+                        .email(item.getEmail())
+                        .date(item.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
+                        .state(item.getStateType())
+                        .businessPresenter(BusinessPresenter.builder()
+                                .businessName(item.getBusiness().getBusinessName())
+                                .build())
+                        .departmentPresenter(DepartmentPresenter.builder()
+                                .idDepartment(departmentsRepository.findById(item.getIdDepartment()).get().getIdDepartment())
+                                .nameDepartment(departmentsRepository.findById(item.getIdDepartment()).get().getNameDepartment())
+                                .build())
+                        .build()).collect(Collectors.toList());
     }
 
 }

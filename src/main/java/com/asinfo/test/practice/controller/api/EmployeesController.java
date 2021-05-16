@@ -50,4 +50,9 @@ public class EmployeesController {
     public void deleteEmployee(@RequestParam("id") UUID id) {
         employeesService.deleteEmployee(id);
     }
+
+    @GetMapping("/searchEmployees/{searchValue}")
+    public List<EmployeesPresenter> searchEmployees(@PathVariable("searchValue") String searchValue) {
+        return employeesService.searchEmployees(searchValue);
+    }
 }

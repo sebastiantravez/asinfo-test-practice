@@ -11,6 +11,7 @@ import lombok.*;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -37,7 +38,7 @@ public class EmployeesPresenter {
 
     private String identificationNumber;
 
-    private Date date;
+    private LocalDate date;
 
     private StateEmployee state;
 
@@ -50,4 +51,6 @@ public class EmployeesPresenter {
     private DepartmentPresenter departmentPresenter;
 
     private byte[] pdf;
+
+    private String nameSupervisor;
 }
