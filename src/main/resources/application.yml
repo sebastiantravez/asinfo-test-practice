@@ -22,4 +22,37 @@ spring:
 jwt:
   security: secret
   expiration: 43200
+
 ---
+
+
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=FALSE
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  liquibase:
+    enabled: true
+    change-log: classpath:db.changelog.xml
+    contexts: ${spring.profiles.active}
+---
+
+spring:
+  profiles: int
+  datasource:
+    url: jdbc:postgresql://172.15.252.74:5432/corporatecustomerservice
+    username: integracion
+    password: top_secret
+    jpa:
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+          jdbc:
+            lob:
+              non_contextual_creation: true
+      hibernate:
+        ddl-auto: validate
+        show-sql: false

@@ -4,7 +4,7 @@
                    xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
 
-    <changeSet id="20210513-00" author="sebastian.travez" >
+    <changeSet id="20210513-00" author="sebastian.travez">
         <createTable tableName="sec_users">
             <column name="id" type="UUID">
                 <constraints primaryKey="true" primaryKeyName="users_pkey"/>
@@ -265,6 +265,46 @@
         <insert tableName="employees_discriminate">
             <column name="id_employee" value="4ab538fb-4e5a-4fa4-862e-960bb3c3496b"></column>
             <column name="id_supervisor" value="4ab538fb-4e5a-4fa4-862e-960bb3c3496b"></column>
+        </insert>
+    </changeSet>
+
+    <changeSet id="20210516-12" author="sebastian.travez">
+        <insert tableName="sec_roles">
+            <column name="id" value="c5bb5c3c-6b28-4db3-9bc2-bef559430236"></column>
+            <column name="name" value="ROLE_ADMIN"></column>
+            <column name="status" value="ACT"></column>
+        </insert>
+        <insert tableName="sec_roles">
+            <column name="id" value="897731dd-08de-4f0e-8e03-c2c62a095d8b"></column>
+            <column name="name" value="ROLE_USER"></column>
+            <column name="status" value="ACT"></column>
+        </insert>
+        <insert tableName="sec_roles">
+            <column name="id" value="3dba6e33-63e1-4b9c-b4d8-b8886dcaea8e"></column>
+            <column name="name" value="ROLE_CUSTOMER"></column>
+            <column name="status" value="ACT"></column>
+        </insert>
+        <insert tableName="sec_roles">
+            <column name="id" value="1d21d75b-183a-4902-b019-6161b5dcfb58"></column>
+            <column name="name" value="ROLE_SUPER"></column>
+            <column name="status" value="ACT"></column>
+        </insert>
+    </changeSet>
+
+    <changeSet id="20210516-13" author="sebastian.travez">
+        <insert tableName="sec_users">
+            <column name="id" value="f26f5031-214a-44fb-9f38-fb206ffccf28"></column>
+            <column name="created_date" valueDate="CURRENT_DATE"></column>
+            <column name="name" value="admin"></column>
+            <column name="nick" value="admin"></column>
+            <column name="email" value="admimn@gmail.com"></column>
+            <column name="password" value="$2a$10$QVAj0KjlP7ugJY/vgr1BYeCaqZ3vKOX5WG/c6qa2RamJuKoLtGjOK"></column>
+            <column name="status" value="ACT"></column>
+        </insert>
+
+        <insert tableName="user_rol">
+            <column name="user_id" value="f26f5031-214a-44fb-9f38-fb206ffccf28"></column>
+            <column name="rol_id" value="c5bb5c3c-6b28-4db3-9bc2-bef559430236"></column>
         </insert>
     </changeSet>
 
