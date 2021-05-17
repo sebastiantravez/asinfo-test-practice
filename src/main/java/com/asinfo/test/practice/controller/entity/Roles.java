@@ -1,8 +1,10 @@
 package com.asinfo.test.practice.controller.entity;
 
+import com.asinfo.test.practice.controller.enums.EnumStatusGeneral;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.*;
 
 @Entity

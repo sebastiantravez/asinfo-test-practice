@@ -19,9 +19,6 @@ spring:
     enabled: true
     change-log: classpath:db.changelog.xml
     contexts: ${spring.profiles.active}
-jwt:
-  security: secret
-  expiration: 43200
 
 ---
 
