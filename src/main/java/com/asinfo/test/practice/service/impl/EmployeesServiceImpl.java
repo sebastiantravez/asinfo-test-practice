@@ -171,7 +171,7 @@ public class EmployeesServiceImpl implements EmployeesService {
     }
 
     @Override
-    public List<EmployeesPresenter> getAllEmployeesWithSupervisor() {
+    public List<EmployeesPresenter> getAllEmployeesWithSupervisorReport() {
         return employeesRepository.findEmployeesWithSupervisor().stream().map(
                 item -> EmployeesPresenter.builder()
                         .fullName(item.getFullName())
@@ -240,6 +240,11 @@ public class EmployeesServiceImpl implements EmployeesService {
                         .departmentPresenter(DepartmentPresenter.builder()
                                 .idDepartment(departmentsRepository.findById(item.getIdDepartment()).get().getIdDepartment())
                                 .nameDepartment(departmentsRepository.findById(item.getIdDepartment()).get().getNameDepartment())
+                                .build())
+                        .usersPresenter(UsersPresenter.builder()
+                                .idUser(usersRepository.findById(item.getIdUser()).get().getIdUser())
+                                .userName(usersRepository.findById(item.getIdUser()).get().getUserName())
+                                .password(usersRepository.findById(item.getIdUser()).get().getPassword())
                                 .build())
                         .chargesPresenter(ChargesPresenter.builder()
                                 .idCharge(chargesRepository.findById(item.getIdCharge()).get().getIdCharge())

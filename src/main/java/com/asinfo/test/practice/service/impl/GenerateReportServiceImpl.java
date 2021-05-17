@@ -28,7 +28,7 @@ public class GenerateReportServiceImpl implements GenerateReportService {
 
     @Override
     public EmployeesPresenter generateEmployeesReport() throws IOException, JRException {
-        List<EmployeesPresenter> employeesPresenters = employeesService.getAllEmployeesWithSupervisor();
+        List<EmployeesPresenter> employeesPresenters = employeesService.getAllEmployeesWithSupervisorReport();
         HashMap<String, Object> parameters = new HashMap<>();
         parameters.put("business", "ASINFO S.A");
         return EmployeesPresenter.builder()

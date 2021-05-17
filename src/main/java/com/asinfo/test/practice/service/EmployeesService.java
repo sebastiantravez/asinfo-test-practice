@@ -15,7 +15,7 @@ public interface EmployeesService {
 
     void deleteEmployee(UUID id);
 
-    List<EmployeesPresenter> getAllEmployeesWithSupervisor();
+    List<EmployeesPresenter> getAllEmployeesWithSupervisorReport();
 
     List<EmployeesPresenter> searchEmployees(String searchValue);
 
