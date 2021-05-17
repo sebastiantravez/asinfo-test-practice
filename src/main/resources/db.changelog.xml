@@ -3,7 +3,6 @@
                    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
                    xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
-
     <changeSet id="20210513-01" author="sebastian.travez">
         <createTable tableName="business">
             <column name="id_business" type="UUID">
@@ -144,8 +143,8 @@
 
         <insert tableName="users">
             <column name="id_user" value="13283705-6ebb-4aa4-a3ca-128e8804d3c8"></column>
-            <column name="user_name" value="admin"></column>
-            <column name="password" value="admin"></column>
+            <column name="user_name" value="gerencia"></column>
+            <column name="password" value="gerencia"></column>
         </insert>
         <insert tableName="users">
             <column name="id_user" value="f3a55966-e551-42ff-a7b9-e56791bce34a"></column>

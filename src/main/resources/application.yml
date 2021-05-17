@@ -2,7 +2,7 @@ spring:
   application:
     name: asinfo-test-practice
   datasource:
-    url: jdbc:postgresql://localhost:5432/test-practice
+    url: jdbc:postgresql://172.15.1.112:5432/test-practice
     username: postgres
     password: postgres
   jpa:
